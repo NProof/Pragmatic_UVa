@@ -1,11 +1,11 @@
 #include <iostream>
+#include <vector>
 
-// data structure
+struct Router;
+
 struct City
 {
-	int S; // 0 < S <= 30
-	int A; // 0 < A <= 30
-	int m; // 0 < m <= 200
+	std::vector<Router> routers;
 };
 
 struct Router
@@ -16,26 +16,33 @@ struct Router
 int main()
 {
 	int n;
+	int S; // 0 < S <= 30
+	int A; // 0 < A <= 30
+	int m; // 0 < m <= 200
 	std::cin >> n;
 	#ifdef DEBUG
 	std::cout << n << std::endl;
 	#endif
 	while(n--)
 	{
-		City city;
-		std::cin >> city.S >> city.A >> city.m;
+		std::cin >> S >> A >> m;
 		#ifdef DEBUG
-		std::cout << city.S << city.A << city.m << std::endl;
+		std::cout << S << A << m << std::endl;
 		#endif
-		int m = city.m;
-		Router routers[m];
+		City city;
+		Router temp;
 		while(m--)
 		{
-			std::cin >> routers[m].s1 >> routers[m].a1 >> routers[m].s2 >> routers[m].a2;
-			#ifdef DEBUG
-			std::cout << routers[m].s1 << routers[m].a1 << routers[m].s2 << routers[m].a2 << std::endl;
-			#endif
+			std::cin >> temp.s1 >> temp.a1 >> temp.s2 >> temp.a2;
+			temp.s1--; temp.a1--; temp.s2--; temp.a2--;
+			city.routers.push_back(temp);
 		}
+		#ifdef DEBUG
+		for(std::vector<Router>::iterator it = city.routers.begin(); it != city.routers.end(); it++)
+		{
+			std::cout << it->s1 << it->a1 << it->s2 << it->a2 << std::endl;
+		}
+		#endif
 	}
 	return 0;
 }
